@@ -1,0 +1,1 @@
+./etcdctl --endpoints=https://192.168.0.106:2379,https://192.168.0.100:2379,https://192.168.0.107:2379 --cacert=/opt/certs/ca.pem --cert=/opt/certs/etcd-peer.pem --key=/opt/certs/etcd-peer-key.pem  endpoint health  -w table

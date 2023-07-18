@@ -1,0 +1,23 @@
+[Unit]
+Description=Kubernetes Kubelet
+
+[Service]
+ExecStart=/opt/kubernetes/server/bin/kubelet \
+--v=2 \
+--log-dir=/opt/kubernetes/logs \
+--hostname-override=k8s-worker-1 \
+--kubeconfig=/opt/apps/kubernetes/conf/kubelet.kubeconfig \
+--bootstrap-kubeconfig=/opt/apps/kubernetes/conf/bootstrap.kubeconfig \
+--config=/opt/apps/kubernetes/conf/kubelet-config.yaml \
+--cert-dir=/opt/certs/ \
+--container-runtime=remote \
+--runtime-request-timeout=15m \
+--container-runtime-endpoint=unix:///run/containerd/containerd.sock \
+--cgroup-driver=systemd \
+--node-labels=node.kubernetes.io/node='' \
+--feature-gates=IPv6DualStack=true
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

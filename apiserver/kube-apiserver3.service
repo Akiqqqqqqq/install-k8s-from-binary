@@ -1,0 +1,38 @@
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/kubernetes/kubernetes
+After=network.target
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=notify
+ExecStart=/opt/kubernetes/server/bin/kube-apiserver \
+    --apiserver-count 3 \
+    --advertise-address=192.168.0.107 \
+    --bind-address=192.168.0.107 \
+    --allow-privileged=true \
+    --audit-log-path /data/logs/kubernetes/kube-apiserver/audit-log \
+    --audit-policy-file /opt/apps/kubernetes/conf/audit.yaml \
+    --token-auth-file=/opt/apps/kubernetes/conf/token.csv \
+    --authorization-mode=RBAC,Node \
+    --enable-bootstrap-token-auth=true \
+    --client-ca-file /opt/certs/ca.pem \
+    --requestheader-client-ca-file /opt/certs/ca.pem \
+    --enable-admission-plugins=NodeRestriction \
+    --etcd-cafile /opt/certs/ca.pem \
+    --etcd-certfile /opt/certs/client.pem \
+    --etcd-keyfile /opt/certs/client-key.pem \
+    --etcd-servers https://192.168.0.106:2379,https://192.168.0.103:2379,https://192.168.0.107:2379 \
+    --service-account-key-file /opt/certs/ca-key.pem \
+    --service-cluster-ip-range 10.0.0.0/24 \
+    --service-node-port-range 3000-29999 \
+    --kubelet-client-certificate /opt/certs/client.pem \
+    --kubelet-client-key /opt/certs/client-key.pem \
+    --log-dir  /data/logs/kubernetes/kube-apiserver \
+    --tls-cert-file /opt/certs/apiserver.pem \
+    --tls-private-key-file /opt/certs/apiserver-key.pem \
+    --service-account-issuer=api \
+    --service-account-signing-key-file /opt/certs/ca-key.pem \
+    --enable-aggregator-routing=true \
+    --v 2
+Restart=on-failure

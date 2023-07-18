@@ -1,0 +1,21 @@
+{
+    "CN": "Akiqqqqqqq",
+    "hosts": [
+    ],
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [
+        {
+            "C": "CN",
+            "ST": "shenzhen",
+            "L": "shenzhen",
+            "O": "aki",
+            "OU": "dev"
+        }
+    ],
+    "ca": {
+        "expiry": "175200h"
+    }
+}

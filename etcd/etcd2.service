@@ -1,0 +1,24 @@
+[Unit]
+Description=Etcd Server
+After=network.target
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=notify
+ExecStart=/opt/etcd/etcd \
+--name=etcd-2 \
+--data-dir=/data/etcd \
+--listen-peer-urls=https://192.168.0.103:2380 \
+--listen-client-urls=https://192.168.0.103:2379,http://127.0.0.1:2379 \
+--advertise-client-urls=https://192.168.0.103:2379 \
+--initial-advertise-peer-urls=https://192.168.0.103:2380 \
+--initial-cluster  etcd-1=https://192.168.0.106:2380,etcd-2=https://192.168.0.103:2380,etcd-3=https://192.168.0.107:2380 \
+--initial-cluster-token=etcd-cluster-0 \
+--initial-cluster-state=new \
+--cert-file=/opt/certs/etcd-peer.pem \
+--key-file=/opt/certs/etcd-peer-key.pem \
+--peer-cert-file=/opt/certs/etcd-peer.pem \
+--peer-key-file=/opt/certs/etcd-peer-key.pem \
+--trusted-ca-file=/opt/certs/ca.pem \
+--peer-trusted-ca-file=/opt/certs/ca.pem
+Restart=on-failure

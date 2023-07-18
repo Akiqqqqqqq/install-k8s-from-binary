@@ -1,0 +1,17 @@
+{
+  "CN": "k8s-controller-manager",
+  "hosts": [],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "CN",
+      "L": "shenzhen",
+      "ST": "shenzhen",
+      "O": "system:masters",
+      "OU": "dev"
+    }
+  ]
+}
